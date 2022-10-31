@@ -16,7 +16,7 @@ CPU | Intel Core i3-1005G1
 iGPU | Intel UHD Graphics G1
 RAM | 8 GB DDR4
 WiFi | Realtek 8821CE (not supported)
-macOS | Monterey 12.6.1
+macOS | Ventura 13.0
 
 ## What works?
 
