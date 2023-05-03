@@ -78,3 +78,4 @@ You should also put in your ethernet adapter's MAC address into the ROM section.
 * [dortania](https://dortania.github.io/OpenCore-Install-Guide/) (for their awesome guide)
 * [jwise](https://github.com/jwise) (for HoRNDIS)
 * [VoodooI2C](https://github.com/VoodooI2C) (for VoodooI2C)
+* our tester
