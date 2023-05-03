@@ -40,7 +40,6 @@ macOS | Ventura 13.0
 - SD card reader (untested)
 - WiFi
     - added HoRDNIS so a tethered wifi connection from an android phone can be used
-        
 - Intel Optane H10
     - Either change your SSD or use an external drive
         - If you are using an external drive, add `nvme=-1` to your boot-args to avoid kernel panics
