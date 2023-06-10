@@ -38,9 +38,9 @@ macOS | Ventura 13.0
 - HDMI Output
 - headphone jack (untested)
 - SD card reader (untested)
-- WiFi
-    - Realtek WiFi cards are not supported, change it to an Intel or Broadcom one for full functionality
-    - added HoRDNIS so a tethered wifi connection from an android phone can be used instead
+- WiFi / Bluetooth
+    - Realtek WiFi cards are not supported, replace it with a Broadcom (dropped in Sonoma) or an Intel one for full functionality
+    - added HoRDNIS so a tethered wifi connection from an Android phone can be used instead
 - Intel Optane H10
     - Either change your SSD or use an external drive
         - If you are using an external drive, add `nvme=-1` to your boot-args to avoid kernel panics
