@@ -38,8 +38,11 @@ macOS | Ventura 13.0
 - HDMI Output
 - headphone jack (untested)
 - SD card reader (untested)
+- Apple ID login
+    - requires a supported internal network adapter
+    (Ethernet (doesn't exist) or a compatible WiFi card)
 - WiFi / Bluetooth
-    - Realtek WiFi cards are not supported, replace it with a Broadcom (dropped in Sonoma) or an Intel one for full functionality
+    - Realtek WiFi cards are not supported, replace it with an Intel (basic functionality) or a Broadcom one (full feature set, Ventura and older)
     - added HoRDNIS so a tethered wifi connection from an Android phone can be used instead
 - Intel Optane H10
     - Either change your SSD or use an external drive
