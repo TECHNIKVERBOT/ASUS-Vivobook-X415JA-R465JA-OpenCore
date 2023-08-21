@@ -4,7 +4,7 @@
 [![GitHub release](https://img.shields.io/github/tag/TECHNIKVERBOT/ASUS-Vivobook-X415JA-R465JA-OpenCore.svg)](https://github.com/TECHNIKVERBOT/ASUS-Vivobook-X415JA-R465JA-OpenCore/releases/)
 [![GitHub issues](https://img.shields.io/github/issues/TECHNIKVERBOT/ASUS-Vivobook-X415JA-R465JA-OpenCore.svg)](https://github.com/TECHNIKVERBOT/ASUS-Vivobook-X415JA-R465JA-OpenCore/issues/)
  
-### Before you give this EFI a try, make sure you read [this](#Generating-your-own-serial-and-Editing-ROM)!
+### Before you give this EFI a try, make sure you read [this](#generating-your-own-serial-and-editing-rom)!
 
 This repo includes an OpenCore EFI for the ASUS Vivobook X415JA.
 
@@ -44,7 +44,7 @@ macOS | Ventura 13.0
 - WiFi / Bluetooth
     - Realtek WiFi cards are not supported, replace it with an Intel (basic functionality) or a Broadcom one (full feature set, Ventura and older)
     - added HoRDNIS so a tethered wifi connection from an Android phone can be used instead
-- Intel Optane H10
+- Intel Optane H10 (stock SSD)
     - Either change your SSD or use an external drive
         - If you are using an external drive, add `nvme=-1` to your boot-args to avoid kernel panics
 
