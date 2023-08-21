@@ -13,7 +13,7 @@ jobs:
       - name: Build
         uses: actions/checkout@v3
 
-      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Intel-WiFi.zip" .
+      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Intel-WiFi-Sonoma.zip" .
 
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
