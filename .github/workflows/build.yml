@@ -8,7 +8,7 @@ on:
 jobs:
   build-intel-wifi:
     name: Build (Intel WiFi)
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - name: Build
         uses: actions/checkout@v3
@@ -32,15 +32,18 @@ jobs:
 
   build-no-wifi:
     name: Build (no WiFi / HoRNDIS / native AirPort)
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - name: Build
         uses: actions/checkout@v3
       
-      - run: plutil -replace "Kernel"."Add".0."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".0."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".1."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".2."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".3."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".4."Enabled" -bool false EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".23."Enabled" -bool false EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".27."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".28."Enabled" -bool false EFI/OC/config.plist
 
       - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-no-WiFi-HoRNDIS.zip" .
 
@@ -61,19 +64,20 @@ jobs:
 
   build-broadcom-wifi:
     name: Build (Broadcom WiFi)
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - name: Build
         uses: actions/checkout@v3
       
-      - run: plutil -replace "Kernel"."Add".22."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".23."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".25."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".26."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".0."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".1."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".2."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".3."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".4."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".12."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".13."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".21."Enabled" -bool true EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".27."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".28."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".29."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".30."Enabled" -bool true EFI/OC/config.plist
 
       - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom.zip" .
 
