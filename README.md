@@ -38,12 +38,11 @@ macOS | Ventura 13.0
 - HDMI Output
 - headphone jack (untested)
 - SD card reader (untested)
-- Apple ID login
-    - requires a supported internal network adapter
-    (Ethernet (doesn't exist) or a compatible WiFi card)
-- WiFi / Bluetooth
-    - Realtek WiFi cards are not supported, replace it with an Intel (basic functionality) or a Broadcom one (full feature set, Ventura and older)
-    - added HoRDNIS so a tethered wifi connection from an Android phone can be used instead
+- Apple ID login (stock Realtek WiFi)
+    - requires a supported internal network adapter (Ethernet (doesn't exist) or a compatible WiFi card)
+- WiFi / Bluetooth (stock Realtek WiFi)
+    - replace it with an Intel (basic functionality) or a Broadcom / AirPort one (full feature set, Ventura and older)
+    - added HoRDNIS so a tethered wifi connection from an Android phone over USB can be used instead
 - Intel Optane H10 (stock SSD)
     - Either change your SSD or use an external drive
         - If you are using an external drive, add `nvme=-1` to your boot-args to avoid kernel panics
@@ -84,4 +83,5 @@ You should also put in your ethernet adapter's MAC address into the ROM section.
 * [dortania](https://dortania.github.io/OpenCore-Install-Guide/) (for their awesome guide)
 * [jwise](https://github.com/jwise) (for HoRNDIS)
 * [VoodooI2C](https://github.com/VoodooI2C) (for VoodooI2C)
+* [OpenIntelWireless](https://github.com/OpenIntelWireless/itlwm) (for Intel WiFi)
 * our tester
