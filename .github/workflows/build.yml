@@ -31,7 +31,7 @@ jobs:
           file_glob: true
 
   build-no-wifi:
-    name: Build (no WiFi / HoRNDIS)
+    name: Build (no WiFi / HoRNDIS / native AirPort)
     runs-on: macos-latest
     steps:
       - name: Build
@@ -75,7 +75,7 @@ jobs:
       - run: plutil -replace "Kernel"."Add".29."Enabled" -bool true EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".30."Enabled" -bool true EFI/OC/config.plist
 
-      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Sonoma.zip" .
+      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom.zip" .
 
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
