@@ -13,7 +13,7 @@ jobs:
       - name: Build
         uses: actions/checkout@v3
 
-      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Intel-WiFi-Sonoma.zip" .
+      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Intel-WiFi.zip" .
 
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
@@ -81,7 +81,7 @@ jobs:
       - run: plutil -replace "Kernel"."Add".22."Enabled" -bool true EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".28."Enabled" -bool false EFI/OC/config.plist
 
-      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom.zip" .
+      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom-WiFi-Ventura.zip" .
 
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
