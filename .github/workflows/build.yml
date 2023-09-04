@@ -39,12 +39,9 @@ jobs:
       
       - run: plutil -replace "Kernel"."Add".0."Enabled" -bool false EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".1."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".2."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".3."Enabled" -bool false EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".4."Enabled" -bool true EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".5."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".24."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".28."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".28."Enabled" -bool true EFI/OC/config.plist
 
       - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-no-WiFi-HoRNDIS.zip" .
 
@@ -76,10 +73,9 @@ jobs:
       - run: plutil -replace "Kernel"."Add".3."Enabled" -bool true EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".4."Enabled" -bool false EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".5."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".13."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".14."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".22."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".28."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".16."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".17."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".18."Enabled" -bool true EFI/OC/config.plist
 
       - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom-WiFi-Ventura.zip" .
 
@@ -98,5 +94,43 @@ jobs:
           tag: ${{ github.ref }}
           file_glob: true
 
+  build-broadcom-sonoma-wifi:
+    name: Build (Broadcom WiFi (Sonoma))
+    runs-on: macos-13
+    steps:
+      - name: Build
+        uses: actions/checkout@v3
+      
+      - run: plutil -replace "Kernel"."Add".0."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".1."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".2."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".3."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".4."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".5."Enabled" -bool false EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".13."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".14."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".16."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".16."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".17."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".18."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "Kernel"."Add".19."Enabled" -bool true EFI/OC/config.plist
+      - run: plutil -replace "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."csr-active-config" -data AwgAAA== EFI/OC/config.plist
+      - run: plutil -replace "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."boot-args" -string "-v keepsyms=1 debug=0x100 revpatch=sbvmm ipc_control_port_options=0 -brcmfxbeta" EFI/OC/config.plist
 
+      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom-WiFi-Ventura.zip" .
+
+      - name: Upload to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Artifacts
+          path: Output/*.zip
+
+      - name: Upload to Release
+        if: github.event_name == 'release'
+        uses: svenstaro/upload-release-action@e74ff71f7d8a4c4745b560a485cc5fdb9b5b999d
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: Output/*.zip
+          tag: ${{ github.ref }}
+          file_glob: true
   
