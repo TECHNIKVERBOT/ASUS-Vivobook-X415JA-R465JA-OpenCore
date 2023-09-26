@@ -67,24 +67,9 @@ After you have created a bootable Installer, copy the EFI folder to the EFI part
 
 ## Fixing Broadcom WiFi in Sonoma (not tested)
 
-1. Install Command Line Tools from [Apple's developer portal](https://developer.apple.com/download/all/) as well as [Python 3](https://www.python.org/)
-2. Temporarily disable Gatekeeper: `sudo spctl --master-disable`
-3. Open Terminal and clone the repository of [OpenCore Legacy Patcher](https://github.com/dortania/OpenCore-Legacy-Patcher): `git clone https://github.com/dortania/OpenCore-Legacy-Patcher`
-4. Navigate to the repository, change the branch, install the required dependencies, then run the Build-Binary command:
-    ```shell
-	cd OpenCore-Legacy-Patcher
-    git checkout sonoma-development
-    pip3 install -r requirements.txt
-    chmod +x Build-Binary.command
-    ./Build-Binary.command
-
-    # It will download payloads.dmg and Universal-Bibaries.dmg for root patching
-	```
-6. In Finder, navigate to `/your home folder/OpenCore-Legacy-Patcher/resources/sys_patch/` and open `sys_patch_detect.py` with TextEdit oder any decent text editor.
-7. Find `self.modern_wifi`, set it from `False` to `True` and save it.
-8. Now run `OpenCore-Patcher-GUI.command` to build the OCLP application. It'll open once it's done building.
-9. Choose `Post-Install Root Patch`, confirm `Networking: Modern Wireless` shows up and start patching.
-10. Reboot after it's done, confirm WiFi works and re-enable Gatekeeper: `sudo spctl --master-enable`
+1. Download the latest Sonoma development branch of [OpenCore Legacy Patcher](https://github.com/dortania/OpenCore-Legacy-Patcher/pull/1077#issuecomment-1646934494) and unpack it.
+8. Open the application, choose `Post-Install Root Patch`, confirm `Networking: Modern Wireless` shows up and start the root patching process.
+10. Reboot after it's done, confirm WiFi works.
 11. Open your EFI's config.plist, remove `amfi=0x80` from `boot-args`, replace it with `-amfipassbeta`, reboot and enjoy working AMFI and WiFi again.
 
 ## Generating your own serial and Editing ROM
