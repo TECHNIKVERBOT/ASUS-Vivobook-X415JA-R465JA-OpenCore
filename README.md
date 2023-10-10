@@ -67,7 +67,7 @@ After you have created a bootable Installer, copy the EFI folder to the EFI part
 
 ## Fixing Broadcom WiFi in Sonoma (not tested)
 
-1. Download the latest Sonoma development branch of [OpenCore Legacy Patcher](https://github.com/dortania/OpenCore-Legacy-Patcher/pull/1077#issuecomment-1646934494) and unpack it.
+1. Download [OpenCore Legacy Patcher](https://github.com/dortania/OpenCore-Legacy-Patcher/releases) and unpack it.
 8. Open the application, choose `Post-Install Root Patch`, confirm `Networking: Modern Wireless` shows up and start the root patching process.
 10. Reboot after it's done, confirm WiFi works.
 11. Open your EFI's config.plist, remove `amfi=0x80` from `boot-args`, replace it with `-amfipassbeta`, reboot and enjoy working AMFI and WiFi again.
