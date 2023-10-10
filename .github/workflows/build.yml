@@ -119,8 +119,8 @@ jobs:
       - run: plutil -replace "Kernel"."Add".28."Enabled" -bool false EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Block".0."Enabled" -bool true EFI/OC/config.plist
       - run: plutil -replace "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."csr-active-config" -data AwgAAA== EFI/OC/config.plist
-      - run: plutil -replace "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."boot-args" -string "-v keepsyms=1 debug=0x100 revpatch=sbvmm ipc_control_port_options=0 amfi=0x80 -brcmfxbeta" EFI/OC/config.plist
-
+      - run: plutil -replace "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."boot-args" -string "-v keepsyms=1 debug=0x100 revpatch=sbvmm ipc_control_port_options=0 amfi=0x80" EFI/OC/config.plist
+      - run: plutil -replace "Misc"."Security"."SecureBootModel"."Disabled" -string true EFI/OC/config.plist
       - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom-WiFi-Sonoma.zip" .
 
       - name: Upload to Artifacts
