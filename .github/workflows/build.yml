@@ -11,12 +11,12 @@ jobs:
     runs-on: macos-13
     steps:
       - name: Build
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Intel-WiFi.zip" .
 
       - name: Upload to Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Artifacts
           path: Output/*.zip
@@ -35,7 +35,7 @@ jobs:
     runs-on: macos-13
     steps:
       - name: Build
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - run: plutil -replace "Kernel"."Add".0."Enabled" -bool false EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".1."Enabled" -bool false EFI/OC/config.plist
@@ -50,7 +50,7 @@ jobs:
       - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-no-WiFi-HoRNDIS.zip" .
 
       - name: Upload to Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Artifacts
           path: Output/*.zip
@@ -69,7 +69,7 @@ jobs:
     runs-on: macos-13
     steps:
       - name: Build
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - run: plutil -replace "Kernel"."Add".0."Enabled" -bool true EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".1."Enabled" -bool true EFI/OC/config.plist
@@ -84,7 +84,7 @@ jobs:
       - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom-WiFi-Ventura.zip" .
 
       - name: Upload to Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Artifacts
           path: Output/*.zip
@@ -103,7 +103,7 @@ jobs:
     runs-on: macos-13
     steps:
       - name: Build
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - run: plutil -replace "Kernel"."Add".0."Enabled" -bool true EFI/OC/config.plist
       - run: plutil -replace "Kernel"."Add".1."Enabled" -bool true EFI/OC/config.plist
@@ -125,7 +125,7 @@ jobs:
       - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom-WiFi-Sonoma.zip" .
 
       - name: Upload to Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Artifacts
           path: Output/*.zip
