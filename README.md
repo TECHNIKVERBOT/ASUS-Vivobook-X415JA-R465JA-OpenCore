@@ -52,22 +52,20 @@ macOS | Ventura 13.0
 - Secure Boot: Disabled
 - TBD
 
-## Sleep fix
+## Sleep Fix
 
-You need to run this commands after every macOS update
+Run these commands to make sleep work:
 
   
 ~~~
 sudo pmset autopoweroff 0
-
 sudo pmset powernap 0
-
 sudo pmset standby 0
-
 sudo pmset proximitywake 0
-
 sudo pmset tcpkeepalive 0
 ~~~
+
+They need to be run after every macOS update.
 
 ## How to install
 
