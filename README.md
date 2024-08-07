@@ -52,6 +52,21 @@ macOS | Ventura 13.0
 - Secure Boot: Disabled
 - TBD
 
+## Sleep Fix
+
+Run these commands to make sleep work:
+
+  
+~~~
+sudo pmset autopoweroff 0
+sudo pmset powernap 0
+sudo pmset standby 0
+sudo pmset proximitywake 0
+sudo pmset tcpkeepalive 0
+~~~
+
+They need to be run after every macOS update.
+
 ## How to install
 
 Download this repo and place the EFI folder into your internal drive's EFI partition... That's it.
