@@ -57,7 +57,7 @@ jobs:
       - name: Create output directory and zip files
         run: |
           mkdir -p Output
-          zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-no-WiFi-HoRNDIS.zip" .
+          zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-no-WiFi-HoRNDIS-Airport.zip" .
 
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v4
@@ -145,7 +145,7 @@ jobs:
       - name: Create output directory and zip files
         run: |
           mkdir -p Output
-          zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom-WiFi-Sonoma.zip" .
+          zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom-WiFi-Sonoma+.zip" .
 
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v4
@@ -198,4 +198,4 @@ jobs:
           echo "- Intel WiFi" >> $GITHUB_STEP_SUMMARY
           echo "- No WiFi / HoRNDIS / native AirPort" >> $GITHUB_STEP_SUMMARY
           echo "- Broadcom WiFi (Ventura)" >> $GITHUB_STEP_SUMMARY
-          echo "- Broadcom WiFi (Sonoma)" >> $GITHUB_STEP_SUMMARY
+          echo "- Broadcom WiFi (Sonoma+)" >> $GITHUB_STEP_SUMMARY
