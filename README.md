@@ -27,7 +27,6 @@ macOS | Ventura 13.0
 - GPU acceleration
 - Keyboard + Trackpad
 - Power Management
-- SD card reader
 - Sleep
 - USB
 - Webcam
@@ -41,7 +40,6 @@ macOS | Ventura 13.0
 - Apple ID login (stock Realtek WiFi)
     - requires a supported internal network adapter (Ethernet (doesn't exist) or a compatible WiFi card)
 - WiFi / Bluetooth (stock Realtek WiFi)
-    - replace it with an Intel (basic functionality) or a Broadcom / AirPort one (full feature set, Ventura and older)
     - added HoRDNIS so a tethered wifi connection from an Android phone over USB can be used instead
 - Intel Optane H10 (stock SSD)
     - Either change your SSD or use an external drive
@@ -79,15 +77,6 @@ There are two ways you can install Ventura:
 - If using Windows, use [macrecovery.py](https://github.com/acidanthera/OpenCorePkg/tree/master/Utilities/macrecovery) from the offical [OpenCore release package](https://github.com/acidanthera/OpenCorePkg/releases/). Follow this [guide](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/winblows-install.html) to understand how it works.
 
 After you have created a bootable Installer, copy the EFI folder to the EFI partition and install as usual. After the installation, mount the EFI partition of the installed OS and copy the EFI folder to its partition.
-
-## Fixing Broadcom WiFi in Sonoma (not tested)
-
-1. Download [OpenCore Legacy Patcher](https://github.com/dortania/OpenCore-Legacy-Patcher/releases) and install the application.
-8. Open the application, choose `Post-Install Root Patch`, confirm `Networking: Modern Wireless` shows up and start the root patching process.
-10. Reboot after it's done, confirm WiFi works.
-11. Open your EFI's config.plist, remove `amfi=0x80` from `boot-args`, reboot and enjoy working AMFI and WiFi again.
-
-These steps need to be repeated after every macOS update.
 
 ## Generating your own serial and Editing ROM
 
