@@ -7,8 +7,8 @@ on:
     types: [published]
 
 jobs:
-  build-intel-wifi:
-    name: Build (Intel WiFi)
+  build-no-wifi:
+    name: Build (no WiFi / HoRNDIS)
     runs-on: macos-14
     steps:
       - name: Checkout repository
@@ -32,8 +32,8 @@ jobs:
         with:
           files: Output/*.zip
 
-  build-no-wifi:
-    name: Build (no WiFi / HoRNDIS / native AirPort)
+  build-intel-wifi:
+    name: Build (Intel WiFi)
     runs-on: macos-14
     steps:
       - name: Checkout repository
