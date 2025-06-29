@@ -2,149 +2,47 @@ name: CI
 
 on:
   push:
+  pull_request:
   release:
     types: [published]
 
 jobs:
-  build-intel-wifi:
-    name: Build (Intel WiFi)
-    runs-on: macos-13
-    steps:
-      - name: Build
-        uses: actions/checkout@v3
-
-      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Intel-WiFi.zip" .
-
-      - name: Upload to Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: Artifacts
-          path: Output/*.zip
-
-      - name: Upload to Release
-        if: github.event_name == 'release'
-        uses: svenstaro/upload-release-action@e74ff71f7d8a4c4745b560a485cc5fdb9b5b999d
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: Output/*.zip
-          tag: ${{ github.ref }}
-          file_glob: true
-
   build-no-wifi:
-    name: Build (no WiFi / HoRNDIS / native AirPort)
-    runs-on: macos-13
+    name: Build (no WiFi / HoRNDIS)
+    runs-on: macos-14
     steps:
-      - name: Build
-        uses: actions/checkout@v3
-      
-      - run: plutil -replace "Kernel"."Add".0."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".1."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".2."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".14."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".15."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".16."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".25."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".34."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".35."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".36."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -remove "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."bluetoothExternalDongleFailed" EFI/OC/config.plist
-      - run: plutil -remove "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."bluetoothInternalControllerInfo" EFI/OC/config.plist
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-no-WiFi-HoRNDIS.zip" .
+      - name: Create output directory and zip files
+        run: |
+          mkdir -p Output
+          zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}.zip" .
 
       - name: Upload to Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: Artifacts
+          name: HoRNDIS
           path: Output/*.zip
+          retention-days: 7
 
       - name: Upload to Release
         if: github.event_name == 'release'
-        uses: svenstaro/upload-release-action@e74ff71f7d8a4c4745b560a485cc5fdb9b5b999d
+        uses: softprops/action-gh-release@v2
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: Output/*.zip
-          tag: ${{ github.ref }}
-          file_glob: true
+          files: Output/*.zip
 
-  build-broadcom-wifi:
-    name: Build (Broadcom WiFi)
-    runs-on: macos-13
-    steps:
-      - name: Build
-        uses: actions/checkout@v3
-      
-      - run: plutil -replace "Kernel"."Add".0."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".1."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".2."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".14."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".15."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".16."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".25."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".34."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".35."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".36."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -remove "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."bluetoothExternalDongleFailed" EFI/OC/config.plist
-      - run: plutil -remove "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."bluetoothInternalControllerInfo" EFI/OC/config.plist
-
-      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom-WiFi-Ventura.zip" .
-
-      - name: Upload to Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: Artifacts
-          path: Output/*.zip
-
-      - name: Upload to Release
-        if: github.event_name == 'release'
-        uses: svenstaro/upload-release-action@e74ff71f7d8a4c4745b560a485cc5fdb9b5b999d
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: Output/*.zip
-          tag: ${{ github.ref }}
-          file_glob: true
-
-  build-broadcom-sonoma-wifi:
-    name: Build (Broadcom WiFi (Sonoma))
-    runs-on: macos-13
-    steps:
-      - name: Build
-        uses: actions/checkout@v3
-      
-      - run: plutil -replace "Kernel"."Add".0."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".1."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".2."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".10."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".11."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".12."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".13."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".14."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".15."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".16."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".25."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".34."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".35."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Add".36."Enabled" -bool false EFI/OC/config.plist
-      - run: plutil -replace "Kernel"."Block".0."Enabled" -bool true EFI/OC/config.plist
-      - run: plutil -replace "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."csr-active-config" -data AwgAAA== EFI/OC/config.plist
-      - run: plutil -replace "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."boot-args" -string "-v keepsyms=1 debug=0x100 revpatch=sbvmm ipc_control_port_options=0 amfi=0x80 -noDC9" EFI/OC/config.plist
-      - run: plutil -remove "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."bluetoothExternalDongleFailed" EFI/OC/config.plist
-      - run: plutil -remove "NVRAM"."Add"."7C436110-AB2A-4BBB-A880-FE41995C9F82"."bluetoothInternalControllerInfo" EFI/OC/config.plist
-      - run: plutil -replace "Misc"."Security"."SecureBootModel" -string "Disabled" EFI/OC/config.plist
-      - run: mkdir Output && zip --exclude '*.git*' --exclude '*.github*' --exclude '*Output*' -r -X "Output/${{ github.event.repository.name }}-${{github.ref_name}}-Broadcom-WiFi-Sonoma.zip" .
-
-      - name: Upload to Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: Artifacts
-          path: Output/*.zip
-
-      - name: Upload to Release
-        if: github.event_name == 'release'
-        uses: svenstaro/upload-release-action@e74ff71f7d8a4c4745b560a485cc5fdb9b5b999d
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: Output/*.zip
-          tag: ${{ github.ref }}
-          file_glob: true
   
+          
+  build-universal:
+    name: Universal Build
+    runs-on: macos-14
+    needs: [build-no-wifi]
+    if: github.event_name == 'release'
+    steps:
+      - name: Create summary
+        run: |
+          echo "# Build Summary" > $GITHUB_STEP_SUMMARY
+          echo "All builds completed successfully. The following builds are available:" >> $GITHUB_STEP_SUMMARY
+          echo "- Intel WiFi" >> $GITHUB_STEP_SUMMARY
+          echo "- No WiFi / HoRNDIS / native AirPort" >> $GITHUB_STEP_SUMMARY
